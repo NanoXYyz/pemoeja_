@@ -22,17 +22,19 @@ class Arsip extends Model
 
     /**
      * Validasi rules dinamis berdasarkan settings
+     * tahun: integer (hanya tahun, bukan full date)
      */
     public static function validationRules(): array
     {
         $keteranganOptions = self::getKeteranganOptions();
+        $currentYear = (int) date('Y');
 
         return [
-            'tahun'      => 'required|date',
+            'tahun'      => "required|integer|min:2000|max:{$currentYear}",
             'keterangan' => !empty($keteranganOptions)
                 ? 'required|in:' . implode(',', $keteranganOptions)
                 : 'required|string|max:255',
-            'link'       => 'required|string',
+            'link'       => 'required|url|max:2048',
         ];
     }
 }

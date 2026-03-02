@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Arsip;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ArsipController extends Controller
@@ -11,7 +10,6 @@ class ArsipController extends Controller
     public function index()
     {
         $arsip             = Arsip::orderBy('tahun', 'desc')->get();
-        // Opsi kategori dari settings untuk filter tab dan form
         $keteranganOptions = Arsip::getKeteranganOptions();
 
         return view('arsip.index', compact('arsip', 'keteranganOptions'));
@@ -25,17 +23,23 @@ class ArsipController extends Controller
 
     public function store(Request $request)
     {
-        $rules = Arsip::validationRules();
-        $request->validate($rules, [
-            'tahun.required'      => 'TAHUN HARUS DI ISI !',
+        $validated = $request->validate(Arsip::validationRules(), [
+            'tahun.required' => 'TAHUN HARUS DI ISI !',
+            'tahun.integer'  => 'TAHUN HARUS BERUPA ANGKA !',
+            'tahun.min'      => 'TAHUN MINIMAL 2000 !',
+            'tahun.max'      => 'TAHUN TIDAK BOLEH MELEBIHI TAHUN INI !',
             'keterangan.required' => 'KETERANGAN HARUS DI ISI !',
-            'link.required'       => 'LINK HARUS DI ISI !',
+            'keterangan.in'       => 'KETERANGAN TIDAK VALID !',
+            'link.required'  => 'LINK HARUS DI ISI !',
+            'link.url'       => 'FORMAT LINK TIDAK VALID ! Gunakan format: https://...',
         ]);
 
-        $data           = $request->only(['keterangan', 'link']);
-        $data['tahun']  = $request->tahun . '-01-01';
+        Arsip::create([
+            'tahun'      => $validated['tahun'] . '-01-01',
+            'keterangan' => $validated['keterangan'],
+            'link'       => $validated['link'],
+        ]);
 
-        Arsip::create($data);
         return redirect()->route('arsip.index')->with('success', 'Arsip berhasil disimpan!');
     }
 
@@ -49,24 +53,30 @@ class ArsipController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $rules = Arsip::validationRules();
-        $request->validate($rules, [
-            'tahun.required'      => 'TAHUN HARUS DI ISI !',
+        $validated = $request->validate(Arsip::validationRules(), [
+            'tahun.required' => 'TAHUN HARUS DI ISI !',
+            'tahun.integer'  => 'TAHUN HARUS BERUPA ANGKA !',
+            'tahun.min'      => 'TAHUN MINIMAL 2000 !',
+            'tahun.max'      => 'TAHUN TIDAK BOLEH MELEBIHI TAHUN INI !',
             'keterangan.required' => 'KETERANGAN HARUS DI ISI !',
-            'link.required'       => 'LINK HARUS DI ISI !',
+            'keterangan.in'       => 'KETERANGAN TIDAK VALID !',
+            'link.required'  => 'LINK HARUS DI ISI !',
+            'link.url'       => 'FORMAT LINK TIDAK VALID ! Gunakan format: https://...',
         ]);
 
-        $arsip         = Arsip::findOrFail($id);
-        $data          = $request->only(['keterangan', 'link']);
-        $data['tahun'] = $request->tahun . '-01-01';
+        $arsip = Arsip::findOrFail($id);
+        $arsip->update([
+            'tahun'      => $validated['tahun'] . '-01-01',
+            'keterangan' => $validated['keterangan'],
+            'link'       => $validated['link'],
+        ]);
 
-        $arsip->update($data);
         return redirect()->route('arsip.index')->with('success', 'Arsip berhasil diperbarui!');
     }
 
     public function destroy(string $id)
     {
-        Arsip::destroy($id);
+        Arsip::findOrFail($id)->delete();
         return redirect()->route('arsip.index')->with('success', 'Arsip berhasil dihapus!');
     }
 }

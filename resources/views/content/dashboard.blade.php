@@ -81,7 +81,6 @@
                 </div>
             </div>
             <p class="text-3xl font-900 text-white mb-1">{{ $totalAnggota }}</p>
-            <p class="text-green-400 text-xs font-600"><i class="fas fa-arrow-up text-xs"></i> +12% bulan ini</p>
         </div>
         <div class="stat-card">
             <div class="flex items-center justify-between mb-3">
@@ -91,7 +90,6 @@
                 </div>
             </div>
             <p class="text-2xl font-900 text-white mb-1">Rp{{ number_format($saldoAkhir, 0, ',', '.') }}</p>
-            <p class="text-green-400 text-xs font-600"><i class="fas fa-arrow-up text-xs"></i> +5.4% bulan ini</p>
         </div>
         <div class="stat-card">
             <div class="flex items-center justify-between mb-3">
@@ -101,7 +99,6 @@
                 </div>
             </div>
             <p class="text-3xl font-900 text-white mb-1">{{ $totalLagu }}</p>
-            <p class="text-gray-500 text-xs font-600">— tidak ada perubahan</p>
         </div>
         <div class="stat-card">
             <div class="flex items-center justify-between mb-3">
@@ -111,7 +108,6 @@
                 </div>
             </div>
             <p class="text-3xl font-900 text-white mb-1">{{ $totalArsip }}</p>
-            <p class="text-green-400 text-xs font-600"><i class="fas fa-arrow-up text-xs"></i> +8% bulan ini</p>
         </div>
     </div>
 
@@ -259,7 +255,6 @@
         // Jalankan auto-slide pertama kali
         resetTimer();
     </script>
-    // Member Chart
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Konfigurasi Global
