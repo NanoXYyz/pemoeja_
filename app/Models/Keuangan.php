@@ -14,8 +14,33 @@ class Keuangan extends Model
         'keterangan',
         'input',
         'saldo',
-        'bukti'
+        'bukti',
     ];
+
+    /**
+     * Ambil opsi jenis transaksi dari settings
+     * (category: keuangan, sub_content: input)
+     */
+    public static function getInputOptions(): array
+    {
+        return Setting::getOptions('keuangan', 'input');
+    }
+
+    /**
+     * Validasi rules dinamis berdasarkan settings
+     */
+    public static function validationRules(): array
+    {
+        $inputOptions = implode(',', self::getInputOptions());
+
+        return [
+            'date'        => 'required|date',
+            'keterangan'  => 'required|string|max:255',
+            'input'       => "required|in:{$inputOptions}",
+            'saldo'       => 'required|integer',
+            'bukti'       => 'nullable|image|max:2048',
+        ];
+    }
 
     // Scope untuk mempermudah filter
     public function scopePemasukan($query)

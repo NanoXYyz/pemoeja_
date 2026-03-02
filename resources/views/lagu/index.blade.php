@@ -4,7 +4,6 @@
 @section('title', 'Lirik Lagu')
 
 @section('content')
-    {{-- Header Section --}}
     <div class="flex items-center justify-between mb-8">
         <div>
             <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
@@ -13,13 +12,13 @@
             <h1 class="text-2xl font-900 text-white">Lirik & Chord Lagu</h1>
             <p class="text-gray-400 text-sm mt-1">Koleksi lagu pujian dan penyembahan</p>
         </div>
-        {{-- Tombol Pemicu Modal --}}
         <button onclick="openModal()" class="btn-primary">
             <i class="fas fa-plus"></i> Tambah Lagu
         </button>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {{-- Sidebar daftar lagu --}}
         <div class="card overflow-hidden">
             <div class="p-4 border-b border-navy-700">
                 <div class="relative">
@@ -27,7 +26,6 @@
                     <i class="fas fa-search absolute left-3 top-3 text-gray-500 text-sm"></i>
                 </div>
             </div>
-
             <div class="divide-y divide-navy-700 max-h-[600px] overflow-y-auto" id="songList">
                 @foreach ($lagus as $index => $lagu)
                     <div class="song-item p-4 cursor-pointer transition-colors hover:bg-navy-800"
@@ -39,17 +37,18 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-700 text-white truncate">{{ $lagu->title }}</p>
+                                <span class="text-xs text-gray-500">Key: {{ $lagu->key }}</span>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
-
             <div class="p-3 border-t border-navy-700">
                 <p class="text-xs text-gray-500 text-center">Ditemukan {{ count($lagus) }} lagu</p>
             </div>
         </div>
 
+        {{-- Area lirik --}}
         <div class="lg:col-span-2 card overflow-hidden">
             <div class="p-6 border-b border-navy-700">
                 <div class="flex items-start justify-between mb-3">
@@ -57,21 +56,16 @@
                         <h2 class="text-xl font-900 text-white" id="songTitle">Pilih Lagu</h2>
                         <div class="flex items-center gap-3 mt-1.5">
                             <span class="badge badge-blue" id="songKey">-</span>
-                            <div class="flex items-center gap-1 text-xs text-gray-500">
-                                <i class="fas fa-music"></i> <span>4/4 Time</span>
-                            </div>
                         </div>
                     </div>
                     <div class="flex gap-2">
                         <button class="btn-secondary py-2 px-3 text-xs" onclick="window.print()">
                             <i class="fas fa-print"></i>
                         </button>
-                        <button class="btn-primary py-2 px-3 text-xs">
-                            <i class="fas fa-play"></i>
-                        </button>
                     </div>
                 </div>
 
+                {{-- Transpose controls — key options dari settings --}}
                 <div class="flex items-center gap-3 mt-3">
                     <span class="text-xs text-gray-500 uppercase tracking-wider font-600">Original</span>
                     <span class="badge badge-blue font-mono font-700" id="originalKey">-</span>
@@ -79,18 +73,10 @@
                         <button onclick="transpose(-1)"
                             class="w-8 h-8 rounded bg-navy-700 border border-navy-600 text-white hover:border-blue-500 transition-all font-700">−</button>
                         <select id="currentKey" class="form-select py-1 px-2 text-xs w-20" onchange="setKey(this.value)">
-                            <option>C</option>
-                            <option>C#</option>
-                            <option>D</option>
-                            <option>D#</option>
-                            <option>E</option>
-                            <option>F</option>
-                            <option>F#</option>
-                            <option>G</option>
-                            <option>G#</option>
-                            <option>A</option>
-                            <option>A#</option>
-                            <option>B</option>
+                            {{-- Diisi dari settings, bukan hardcode --}}
+                            @foreach ($keyOptions as $k)
+                                <option value="{{ $k }}">{{ $k }}</option>
+                            @endforeach
                         </select>
                         <button onclick="transpose(1)"
                             class="w-8 h-8 rounded bg-navy-700 border border-navy-600 text-white hover:border-blue-500 transition-all font-700">+</button>
@@ -105,6 +91,7 @@
         </div>
     </div>
 
+    {{-- Modal Tambah Lagu --}}
     <div id="modalTambah" class="fixed inset-0 z-50 hidden">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
         <div class="relative min-h-screen flex items-center justify-center p-4 pointer-events-none">
@@ -113,7 +100,6 @@
                     <h2 class="text-xl font-900 text-white">Tambah Lagu Baru</h2>
                     <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl">&times;</button>
                 </div>
-
                 <form action="{{ route('lagu.store') }}" method="POST">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -124,18 +110,11 @@
                         </div>
                         <div>
                             <label class="text-xs font-700 text-gray-400 uppercase mb-1 block">Kunci Dasar</label>
+                            {{-- Key dari settings, bukan hardcode --}}
                             <select name="key" class="form-select">
-                                <option>C</option>
-                                <option>C#</option>
-                                <option>D</option>
-                                <option>D#</option>
-                                <option>E</option>
-                                <option>F</option>
-                                <option>F#</option>
-                                <option>G</option>
-                                <option>G#</option>
-                                <option>A</option>
-                                <option>B</option>
+                                @foreach ($keyOptions as $k)
+                                    <option value="{{ $k }}">{{ $k }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -147,9 +126,8 @@
                     <div class="mb-6">
                         <label class="text-xs font-700 text-blue-400 uppercase mb-1 block">Chorus / Reff</label>
                         <textarea name="reff" rows="4" class="form-textarea font-mono text-sm bg-blue-500/5"
-                            placeholder="Chord di atas lirik reff..." required></textarea>
+                            placeholder="Chord di atas lirik reff..."></textarea>
                     </div>
-
                     <div class="flex gap-3">
                         <button type="submit" class="btn-primary flex-1 justify-center py-3">Simpan Lagu</button>
                         <button type="button" onclick="closeModal()" class="btn-secondary px-6">Batal</button>
@@ -163,13 +141,13 @@
 @push('scripts')
     <script>
         const songData = @json($lagus);
-        const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        // Key notes diambil dari settings via PHP, bukan hardcode di JS
+        const NOTES = @json($keyOptions);
         const NOTES_FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
         let currentSemitone = 0;
         let originalSemitone = 0;
 
-        // Fungsi Transpose Text (RegEx)
         function transposeChordText(text, semitones) {
             return text.replace(/\b([A-G](?:#|b)?(?:m|maj|min|dim|aug|sus|add)?(?:\d+)?(?:\/[A-G](?:#|b)?)?)\b/g, function(
                 match) {
@@ -185,41 +163,34 @@
             });
         }
 
-        // Memilih Lagu dari Sidebar
         function selectSong(idx) {
             const song = songData[idx];
             if (!song) return;
-
             document.getElementById('songTitle').innerText = song.title;
             document.getElementById('originalKey').innerText = song.key;
             document.getElementById('songKey').innerText = song.key;
-
-            // Reset Logic Transpose
             originalSemitone = NOTES.indexOf(song.key);
             if (originalSemitone === -1) originalSemitone = NOTES_FLAT.indexOf(song.key);
             currentSemitone = originalSemitone;
             document.getElementById('currentKey').value = song.key;
-
-            // Render Lirik dengan tag <pre> agar formatting terjaga
             const lyricsArea = document.getElementById('lyricsDisplay');
             lyricsArea.innerHTML = `
-                <div class="mb-8">
-                    <pre class="chord-render font-mono text-gray-300 leading-relaxed whitespace-pre-wrap outline-none" data-original="${song.lirik}">${song.lirik}</pre>
-                </div>
+            <div class="mb-8">
+                <pre class="chord-render font-mono text-gray-300 leading-relaxed whitespace-pre-wrap outline-none" data-original="${song.lirik}">${song.lirik}</pre>
+            </div>
+            ${song.reff ? `
                 <div class="mb-6 bg-blue-500/5 rounded-2xl p-6 border border-blue-500/10 shadow-inner">
                     <span class="text-[10px] font-900 text-blue-400 tracking-[0.2em] uppercase block mb-4">Chorus</span>
                     <pre class="chord-render font-mono text-white font-600 leading-relaxed whitespace-pre-wrap outline-none" data-original="${song.reff}">${song.reff}</pre>
-                </div>
-            `;
+                </div>` : ''}
+        `;
             updateActiveState(idx);
         }
 
-        // Fungsi Update Chord di Layar
         function updateChords() {
             const diff = currentSemitone - originalSemitone;
             document.querySelectorAll('.chord-render').forEach(el => {
-                const originalText = el.getAttribute('data-original');
-                el.textContent = transposeChordText(originalText, diff);
+                el.textContent = transposeChordText(el.getAttribute('data-original'), diff);
             });
         }
 
@@ -237,7 +208,7 @@
 
         function resetKey() {
             currentSemitone = originalSemitone;
-            document.getElementById('currentKey').value = NOTES[originalSemitone];
+            document.getElementById('currentKey').value = NOTES[originalSemitone] ?? NOTES[0];
             updateChords();
         }
 
@@ -249,7 +220,6 @@
             });
         }
 
-        // Modal Controls
         function openModal() {
             document.getElementById('modalTambah').classList.remove('hidden');
         }
@@ -258,16 +228,13 @@
             document.getElementById('modalTambah').classList.add('hidden');
         }
 
-        // Live Search
         document.getElementById('searchLagu').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
             document.querySelectorAll('.song-item').forEach((item, i) => {
-                const title = songData[i].title.toLowerCase();
-                item.style.display = title.includes(term) ? 'block' : 'none';
+                item.style.display = songData[i].title.toLowerCase().includes(term) ? 'block' : 'none';
             });
         });
 
-        // Load lagu pertama secara default
         document.addEventListener('DOMContentLoaded', () => {
             if (songData.length > 0) selectSong(0);
         });

@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->enum('gender', ['laki-laki', 'perempuan']);
-            $table->enum('status', ['pelajar', 'bekerja']);
-            $table->enum('jabatan', ['ketua', 'wakil', 'sekretaris', 'bendahara', 'persekutuan', 'anggota']);
+            // Dulu enum, sekarang string — opsi dikontrol oleh settings (category: anggota)
+            $table->string('gender');   // setting: anggota > gender
+            $table->string('status');   // setting: anggota > status
+            $table->string('jabatan');  // setting: anggota > jabatan
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('anggotas');

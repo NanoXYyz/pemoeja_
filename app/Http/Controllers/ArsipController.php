@@ -3,61 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Models\Arsip;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ArsipController extends Controller
 {
-    public function index() {
-        $arsip = Arsip::all();
-        return view('arsip.index', compact('arsip'));
+    public function index()
+    {
+        $arsip             = Arsip::orderBy('tahun', 'desc')->get();
+        // Opsi kategori dari settings untuk filter tab dan form
+        $keteranganOptions = Arsip::getKeteranganOptions();
+
+        return view('arsip.index', compact('arsip', 'keteranganOptions'));
     }
 
-    public function create() {
-        return view('arsip.create');
+    public function create()
+    {
+        $keteranganOptions = Arsip::getKeteranganOptions();
+        return view('arsip.create', compact('keteranganOptions'));
     }
 
-    public function store(Request $request) {
-        $request->validate([
-            'tahun'     => 'required',
-            'keterangan'=> 'required',
-            'link'      => 'required',
-        ], [
-            'tahun.required'        => 'TAHUN HARUS DI ISI !',
-            'keterangan.required'   => 'KETERANGAN HARUS DI ISI !',
-            'link.required'         => 'LINK HARUS DI ISI !',
+    public function store(Request $request)
+    {
+        $rules = Arsip::validationRules();
+        $request->validate($rules, [
+            'tahun.required'      => 'TAHUN HARUS DI ISI !',
+            'keterangan.required' => 'KETERANGAN HARUS DI ISI !',
+            'link.required'       => 'LINK HARUS DI ISI !',
         ]);
 
-        $data = $request->all();
-        $data['tahun'] = $request->tahun . '-01-01';
+        $data           = $request->only(['keterangan', 'link']);
+        $data['tahun']  = $request->tahun . '-01-01';
 
         Arsip::create($data);
-        return redirect()->route('arsip.index');
+        return redirect()->route('arsip.index')->with('success', 'Arsip berhasil disimpan!');
     }
 
-    public function edit(String $id) {
-        $arsip = Arsip::find($id);
-        return view('arsip.edit', compact('arsip'));
+    public function edit(string $id)
+    {
+        $arsip             = Arsip::findOrFail($id);
+        $keteranganOptions = Arsip::getKeteranganOptions();
+
+        return view('arsip.edit', compact('arsip', 'keteranganOptions'));
     }
 
-    public function update(Request $request, String $id) {
-        $request->validate([
-            'tahun'     => 'required',
-            'keterangan'=> 'required',
-            'link'      => 'required',
-        ], [
-            'tahun.required'        => 'TAHUN HARUS DI ISI !',
-            'keterangan.required'   => 'KETERANGAN HARUS DI ISI !',
-            'link.required'         => 'LINK HARUS DI ISI !',
+    public function update(Request $request, string $id)
+    {
+        $rules = Arsip::validationRules();
+        $request->validate($rules, [
+            'tahun.required'      => 'TAHUN HARUS DI ISI !',
+            'keterangan.required' => 'KETERANGAN HARUS DI ISI !',
+            'link.required'       => 'LINK HARUS DI ISI !',
         ]);
 
-        $arsip = Arsip::findOrFail($id);
+        $arsip         = Arsip::findOrFail($id);
+        $data          = $request->only(['keterangan', 'link']);
+        $data['tahun'] = $request->tahun . '-01-01';
 
-        $arsip->update($request->all());
-        return redirect()->route('arsip.index')->with('sucsses');
+        $arsip->update($data);
+        return redirect()->route('arsip.index')->with('success', 'Arsip berhasil diperbarui!');
     }
 
-    public function destroy(String $id) {
+    public function destroy(string $id)
+    {
         Arsip::destroy($id);
-        return redirect()->route('arsip.index')->with('sucsses');
+        return redirect()->route('arsip.index')->with('success', 'Arsip berhasil dihapus!');
     }
 }

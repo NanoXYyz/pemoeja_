@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -10,43 +11,47 @@ class JadwalController extends Controller
 {
     public function index()
     {
-        // Mengambil semua jadwal untuk daftar samping
-        $allJadwal = Jadwal::orderBy('tanggal', 'asc')->get();
-
-        // Jadwal terdekat untuk detail awal
+        $allJadwal    = Jadwal::orderBy('tanggal', 'asc')->get();
         $activeJadwal = Jadwal::where('tanggal', '>=', Carbon::today())
-                               ->orderBy('tanggal', 'asc')
-                               ->first();
+                              ->orderBy('tanggal', 'asc')
+                              ->first();
 
-        // Format data untuk FullCalendar
-        $events = $allJadwal->map(function ($item) {
-            return [
-                'id' => $item->id,
-                'title' => $item->title,
-                'start' => $item->tanggal,
-                'extendedProps' => [
-                    'tempat' => $item->tempat,
-                    'mc' => $item->mc,
-                    'pf' => $item->pf,
-                ]
-            ];
-        });
+        // Opsi dari settings untuk form tambah jadwal
+        $titleOptions  = Jadwal::getTitleOptions();
+        $tempatOptions = Jadwal::getTempatOptions();
 
-        return view('jadwal.index', compact('allJadwal', 'activeJadwal', 'events'));
+        $events = $allJadwal->map(fn($item) => [
+            'id'            => $item->id,
+            'title'         => $item->title,
+            'start'         => $item->tanggal,
+            'extendedProps' => [
+                'tempat' => $item->tempat,
+                'mc'     => $item->mc,
+                'pf'     => $item->pf,
+            ],
+        ]);
+
+        return view('jadwal.index', compact('allJadwal', 'activeJadwal', 'events', 'titleOptions', 'tempatOptions'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'tempat' => 'required|string|max:255',
-            'pf' => 'required|string|max:255',
-            'mc' => 'required|string|max:255',
+        $rules = Jadwal::validationRules();
+        $request->validate($rules, [
+            'title.required'   => 'NAMA ACARA HARUS DI ISI!',
+            'tanggal.required' => 'TANGGAL HARUS DI ISI!',
+            'tempat.required'  => 'TEMPAT HARUS DI ISI!',
+            'mc.required'      => 'WORSHIP LEADER HARUS DI ISI!',
+            'pf.required'      => 'PELAYAN FIRMAN HARUS DI ISI!',
         ]);
 
-        Jadwal::create($validated);
-
+        Jadwal::create($request->only(['title', 'tanggal', 'tempat', 'mc', 'pf']));
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan!');
+    }
+
+    public function destroy(string $id)
+    {
+        Jadwal::destroy($id);
+        return redirect()->back()->with('success', 'Jadwal berhasil dihapus!');
     }
 }

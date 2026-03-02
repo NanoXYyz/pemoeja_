@@ -6,20 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('keuangans', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->string('keterangan');
-            $table->enum('input', ['pemasukan', 'pengeluaran']);
-            $table->bigInteger('saldo'); // Nominal transaksi
-            $table->string('bukti')->nullable(); // Path gambar bukti
+            // Dulu enum, sekarang string — opsi dikontrol oleh settings (category: keuangan)
+            $table->string('input');          // setting: keuangan > input
+            $table->bigInteger('saldo');      // nominal transaksi
+            $table->string('bukti')->nullable(); // path gambar bukti
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('keuangans');
     }

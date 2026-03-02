@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('lagus', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('key', ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']);
+            // Dulu enum chromatic scale, sekarang string — opsi dikontrol oleh settings (category: lagu)
+            $table->string('key');  // setting: lagu > key
             $table->text('lirik');
-            $table->text('reff')->nullabel();
+            $table->text('reff')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('lagus');
