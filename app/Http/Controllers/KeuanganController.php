@@ -52,7 +52,7 @@ class KeuanganController extends Controller
 
         return view('keuangan.index', compact(
             'keuangan', 'totalPemasukan', 'totalPengeluaran', 'saldoAkhir',
-            'chartData', 'inputOptions'
+            'chartData', 'inputOptions', 'totals'
         ));
     }
 

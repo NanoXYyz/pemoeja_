@@ -26,34 +26,10 @@
                     @endif
                 @endauth
 
-                <!-- Lagu Dropdown -->
-                @auth
-                    @if (Auth::user()->role === 'admin')
-                        <div class="relative" id="laguDropdownContainer">
-                            <button onclick="toggleDropdown('laguDropdown')"
-                                class="nav-link px-4 py-2 rounded-lg text-sm {{ Request::is('lagu*') ? 'nav-active text-blue-400' : 'text-gray-400 hover:bg-navy-800 hover:text-white' }} transition-all flex items-center gap-1">
-                                Lagu <i class="fas fa-chevron-down text-xs opacity-60"></i>
-                            </button>
-                            <div id="laguDropdown" class="dropdown-menu absolute top-12 left-0 w-44 py-2 hidden z-50"
-                                style="background: #0f2040; border: 1px solid rgba(59,127,255,0.2); border-radius: 10px;">
-                                <a href="{{ route('lagu.index') }}"
-                                    class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-navy-700 hover:text-white transition-colors flex items-center gap-2">
-                                    <i class="fas fa-music text-blue-400 text-xs w-4"></i> Lirik Lagu
-                                </a>
-                                {{-- <a href="{{ route('lagu.create') }}"
-                                    class="w-full text-left px-4 py-2.5 text-sm text-gray-300 hover:bg-navy-700 hover:text-white transition-colors flex items-center gap-2">
-                                    <i class="fas fa-plus-circle text-blue-400 text-xs w-4"></i> Pengaturan Lagu
-                                </a> --}}
-                            </div>
-                        </div>
-                    @endif
-                @endauth
-                @guest
-                    <a href="{{ route('lagu.index') }}"
-                        class="nav-link px-4 py-2 rounded-lg text-sm {{ Route::is('lagu.*') ? 'nav-active text-blue-400' : 'text-gray-400' }} transition-all">
-                        Lagu
-                    </a>
-                @endguest
+                <a href="{{ route('lagu.index') }}"
+                    class="nav-link px-4 py-2 rounded-lg text-sm {{ Route::is('lagu.*') ? 'nav-active text-blue-400' : 'text-gray-400' }} transition-all">
+                    Lagu
+                </a>
 
                 <!-- Jadwal Dropdown -->
                 @auth

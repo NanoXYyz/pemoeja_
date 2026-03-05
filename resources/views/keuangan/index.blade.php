@@ -30,7 +30,8 @@
                     <p class="text-3xl font-black text-white mb-1 relative z-10">
                         Rp {{ number_format($totalPemasukan ?? 0, 0, ',', '.') }}
                     </p>
-                    <div class="absolute -right-4 -bottom-4 text-green-500/5 text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-500">
+                    <div
+                        class="absolute -right-4 -bottom-4 text-green-500/5 text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-500">
                         <i class="fas fa-arrow-down"></i>
                     </div>
                 </div>
@@ -38,7 +39,8 @@
                 {{-- Card Pengeluaran --}}
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl relative overflow-hidden group">
                     <div class="flex items-center justify-between mb-4 relative z-10">
-                        <span class="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em]">Total Pengeluaran</span>
+                        <span class="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em]">Total
+                            Pengeluaran</span>
                         <div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
                             <i class="fas fa-arrow-up text-red-500"></i>
                         </div>
@@ -46,23 +48,28 @@
                     <p class="text-3xl font-black text-white mb-1 relative z-10">
                         Rp {{ number_format($totalPengeluaran ?? 0, 0, ',', '.') }}
                     </p>
-                    <div class="absolute -right-4 -bottom-4 text-red-500/5 text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-500">
+                    <div
+                        class="absolute -right-4 -bottom-4 text-red-500/5 text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-500">
                         <i class="fas fa-arrow-up"></i>
                     </div>
                 </div>
 
                 {{-- Card Saldo --}}
-                <div class="rounded-3xl p-6 shadow-xl relative overflow-hidden group border border-blue-500/30 bg-gradient-to-br from-slate-900 to-slate-800">
+                <div
+                    class="rounded-3xl p-6 shadow-xl relative overflow-hidden group border border-blue-500/30 bg-gradient-to-br from-slate-900 to-slate-800">
                     <div class="flex items-center justify-between mb-4 relative z-10">
                         <span class="text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">Saldo Saat Ini</span>
-                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/20">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center border border-blue-500/20">
                             <i class="fas fa-wallet text-blue-400"></i>
                         </div>
                     </div>
-                    <p class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-1 relative z-10">
+                    <p
+                        class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-1 relative z-10">
                         Rp {{ number_format($saldoAkhir ?? 0, 0, ',', '.') }}
                     </p>
-                    <p class="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Update: {{ now()->format('d M Y') }}</p>
+                    <p class="text-slate-500 text-[9px] font-bold uppercase tracking-widest">Update:
+                        {{ now()->format('d M Y') }}</p>
                 </div>
             </div>
 
@@ -93,7 +100,8 @@
                                         {{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}
                                     </td>
                                     <td class="px-8 py-5">
-                                        <p class="text-sm font-black text-white uppercase group-hover:text-blue-400 transition-colors">
+                                        <p
+                                            class="text-sm font-black text-white uppercase group-hover:text-blue-400 transition-colors">
                                             {{ $item->keterangan }}
                                         </p>
                                     </td>
@@ -102,25 +110,31 @@
                                         @php
                                             $isIn = $item->input === 'pemasukan';
                                         @endphp
-                                        <span class="px-3 py-1 text-[9px] font-black rounded-lg border uppercase
+                                        <span
+                                            class="px-3 py-1 text-[9px] font-black rounded-lg border uppercase
                                             {{ $isIn ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20' }}">
                                             {{ ucfirst($item->input) }}
                                         </span>
                                     </td>
-                                    <td class="px-8 py-5 text-sm font-black {{ $isIn ? 'text-green-400' : 'text-red-400' }}">
+                                    <td
+                                        class="px-8 py-5 text-sm font-black {{ $isIn ? 'text-green-400' : 'text-red-400' }}">
                                         {{ $isIn ? '+' : '-' }} Rp {{ number_format($item->saldo, 0, ',', '.') }}
                                     </td>
                                     <td class="px-8 py-5">
                                         @if ($item->bukti)
-                                            <button onclick="showImageModal('{{ asset('storage/' . $item->bukti) }}', '{{ $item->keterangan }}')"
+                                            <button
+                                                onclick="showImageModal('{{ asset('storage/' . $item->bukti) }}', '{{ $item->keterangan }}')"
                                                 class="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 hover:border-blue-500 transition-all relative group/img">
-                                                <img src="{{ asset('storage/' . $item->bukti) }}" class="w-full h-full object-cover">
-                                                <div class="absolute inset-0 bg-blue-600/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
+                                                <img src="{{ asset('storage/' . $item->bukti) }}"
+                                                    class="w-full h-full object-cover">
+                                                <div
+                                                    class="absolute inset-0 bg-blue-600/40 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity">
                                                     <i class="fas fa-eye text-white text-[10px]"></i>
                                                 </div>
                                             </button>
                                         @else
-                                            <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
+                                            <div
+                                                class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
                                                 <i class="fas fa-image text-slate-600 text-[10px]"></i>
                                             </div>
                                         @endif
@@ -134,7 +148,8 @@
                                             <form action="{{ route('keuangan.destroy', $item->id) }}" method="POST"
                                                 onsubmit="return confirm('Hapus data ini?')">
                                                 @csrf @method('DELETE')
-                                                <button type="submit" class="p-2 text-red-500/50 hover:text-red-500 transition-colors">
+                                                <button type="submit"
+                                                    class="p-2 text-red-500/50 hover:text-red-500 transition-colors">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                             </form>
@@ -144,7 +159,8 @@
                             @empty
                                 <tr>
                                     <td colspan="6" class="px-8 py-20 text-center">
-                                        <p class="text-gray-600 font-bold uppercase tracking-widest text-xs">Belum ada data transaksi</p>
+                                        <p class="text-gray-600 font-bold uppercase tracking-widest text-xs">Belum ada data
+                                            transaksi</p>
                                     </td>
                                 </tr>
                             @endforelse
@@ -186,7 +202,8 @@
                 @php $doughnutColors = ['#10b981', '#ef4444', '#3b82f6', '#f59e0b']; @endphp
                 @foreach ($inputOptions as $i => $opt)
                     <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full" style="background: {{ $doughnutColors[$i % count($doughnutColors)] }}"></div>
+                        <div class="w-3 h-3 rounded-full"
+                            style="background: {{ $doughnutColors[$i % count($doughnutColors)] }}"></div>
                         <span class="text-slate-400 text-xs font-bold uppercase">{{ ucfirst($opt) }}</span>
                     </div>
                 @endforeach
@@ -201,31 +218,40 @@
             <div id="createModalContent"
                 class="relative max-w-2xl w-full bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-[0_0_80px_-20px_rgba(59,130,246,0.3)] border border-slate-700 transform scale-95 transition-transform duration-300">
 
-                <div class="px-10 py-8 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-800/50 to-transparent">
+                <div
+                    class="px-10 py-8 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-800/50 to-transparent">
                     <h4 class="text-xl font-black text-white uppercase tracking-widest flex items-center gap-3">
-                        <span class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/40">
+                        <span
+                            class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/40">
                             <i class="fas fa-plus text-xs text-white"></i>
                         </span>
                         Input Data Kas
                     </h4>
-                    <button onclick="closeCreateModal()" class="w-10 h-10 rounded-full text-gray-500 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center">
+                    <button onclick="closeCreateModal()"
+                        class="w-10 h-10 rounded-full text-gray-500 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
 
-                <form action="{{ route('keuangan.store') }}" method="POST" enctype="multipart/form-data" class="p-10">
+                <form action="{{ route('keuangan.store') }}" method="POST" enctype="multipart/form-data"
+                    class="p-10">
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Tanggal Transaksi</label>
+                                <label
+                                    class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Tanggal
+                                    Transaksi</label>
                                 <input type="date" name="date" value="{{ date('Y-m-d') }}" required
                                     class="w-full bg-slate-800/50 border-slate-700 rounded-2xl text-white text-sm focus:ring-2 focus:ring-blue-500 h-14 px-6">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Nominal (IDR)</label>
+                                <label
+                                    class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Nominal
+                                    (IDR)</label>
                                 <div class="relative">
-                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm">Rp</span>
+                                    <span
+                                        class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm">Rp</span>
                                     <input type="text" id="display_saldo" placeholder="0" required
                                         oninput="formatCurrency(this)"
                                         class="w-full bg-slate-800/50 border-slate-700 pl-14 rounded-2xl text-white text-xl font-black focus:ring-2 focus:ring-blue-500 h-14">
@@ -236,22 +262,26 @@
 
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Jenis Transaksi</label>
+                                <label
+                                    class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Jenis
+                                    Transaksi</label>
                                 {{-- Dibangun dari $inputOptions (settings), bukan hardcode --}}
                                 <div class="grid grid-cols-{{ count($inputOptions) <= 2 ? '2' : '3' }} gap-3">
                                     @php
                                         $optColors = [
                                             0 => ['border-green-500', 'bg-green-500/10', 'text-green-500'],
-                                            1 => ['border-red-500',   'bg-red-500/10',   'text-red-500'],
-                                            2 => ['border-blue-500',  'bg-blue-500/10',  'text-blue-500'],
+                                            1 => ['border-red-500', 'bg-red-500/10', 'text-red-500'],
+                                            2 => ['border-blue-500', 'bg-blue-500/10', 'text-blue-500'],
                                             3 => ['border-amber-500', 'bg-amber-500/10', 'text-amber-500'],
                                         ];
                                     @endphp
                                     @foreach ($inputOptions as $i => $opt)
                                         @php $c = $optColors[$i % count($optColors)]; @endphp
                                         <label class="cursor-pointer">
-                                            <input type="radio" name="input" value="{{ $opt }}" class="peer hidden" {{ $i === 0 ? 'checked' : '' }}>
-                                            <div class="flex items-center justify-center h-14 rounded-2xl border border-slate-700 bg-slate-800/50 text-gray-500
+                                            <input type="radio" name="input" value="{{ $opt }}"
+                                                class="peer hidden" {{ $i === 0 ? 'checked' : '' }}>
+                                            <div
+                                                class="flex items-center justify-center h-14 rounded-2xl border border-slate-700 bg-slate-800/50 text-gray-500
                                                 peer-checked:{{ $c[0] }} peer-checked:{{ $c[1] }} peer-checked:{{ $c[2] }}
                                                 transition-all font-black text-xs uppercase">
                                                 {{ ucfirst($opt) }}
@@ -262,12 +292,18 @@
                             </div>
 
                             <div>
-                                <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Bukti Gambar</label>
+                                <label
+                                    class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Bukti
+                                    Gambar</label>
                                 <div class="relative">
-                                    <input type="file" name="bukti" id="buktiInput" accept="image/*" class="hidden" onchange="previewFile(this)">
-                                    <label for="buktiInput" class="flex items-center gap-4 px-6 h-14 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-800/30 hover:border-blue-500 transition-all cursor-pointer">
+                                    <input type="file" name="bukti" id="buktiInput" accept="image/*"
+                                        class="hidden" onchange="previewFile(this)">
+                                    <label for="buktiInput"
+                                        class="flex items-center gap-4 px-6 h-14 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-800/30 hover:border-blue-500 transition-all cursor-pointer">
                                         <i class="fas fa-upload text-gray-500"></i>
-                                        <span id="fileName" class="text-[10px] font-black text-gray-500 uppercase truncate">Pilih Lampiran</span>
+                                        <span id="fileName"
+                                            class="text-[10px] font-black text-gray-500 uppercase truncate">Pilih
+                                            Lampiran</span>
                                     </label>
                                 </div>
                             </div>
@@ -275,7 +311,8 @@
                     </div>
 
                     <div class="mt-8">
-                        <label class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Keterangan</label>
+                        <label
+                            class="block text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-3 px-1">Keterangan</label>
                         <input name="keterangan" placeholder="Masukkan detail transaksi di sini..."
                             oninput="this.value = this.value.toUpperCase()" required
                             class="w-full bg-slate-800/50 border-slate-700 rounded-2xl text-white text-sm focus:ring-2 focus:ring-blue-500 px-6 py-4">
@@ -301,14 +338,17 @@
             <div id="editModalContent"
                 class="relative max-w-2xl w-full bg-slate-900 rounded-[2.5rem] overflow-hidden shadow-[0_0_80px_-20px_rgba(251,191,36,0.2)] border border-slate-700 transform scale-95 transition-transform duration-300">
 
-                <div class="px-10 py-8 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-800/50 to-transparent">
+                <div
+                    class="px-10 py-8 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-slate-800/50 to-transparent">
                     <h4 class="text-xl font-black text-white uppercase tracking-widest flex items-center gap-3">
-                        <span class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/40">
+                        <span
+                            class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/40">
                             <i class="fas fa-edit text-xs text-white"></i>
                         </span>
                         Edit Transaksi
                     </h4>
-                    <button onclick="closeEditModal()" class="w-10 h-10 rounded-full text-gray-500 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center">
+                    <button onclick="closeEditModal()"
+                        class="w-10 h-10 rounded-full text-gray-500 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -318,14 +358,19 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Tanggal Transaksi</label>
+                                <label
+                                    class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Tanggal
+                                    Transaksi</label>
                                 <input type="date" name="date" id="editDate" required
                                     class="w-full bg-slate-800/50 border-slate-700 rounded-2xl text-white text-sm focus:ring-2 focus:ring-amber-500 h-14 px-6">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Nominal (IDR)</label>
+                                <label
+                                    class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Nominal
+                                    (IDR)</label>
                                 <div class="relative">
-                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm">Rp</span>
+                                    <span
+                                        class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 font-bold text-sm">Rp</span>
                                     <input type="text" id="edit_display_saldo" placeholder="0" required
                                         oninput="formatCurrencyEdit(this)"
                                         class="w-full bg-slate-800/50 border-slate-700 pl-14 rounded-2xl text-white text-xl font-black focus:ring-2 focus:ring-amber-500 h-14">
@@ -336,14 +381,19 @@
 
                         <div class="space-y-6">
                             <div>
-                                <label class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Jenis Transaksi</label>
+                                <label
+                                    class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Jenis
+                                    Transaksi</label>
                                 {{-- Juga dinamis dari $inputOptions --}}
-                                <div class="grid grid-cols-{{ count($inputOptions) <= 2 ? '2' : '3' }} gap-3" id="editInputOptions">
+                                <div class="grid grid-cols-{{ count($inputOptions) <= 2 ? '2' : '3' }} gap-3"
+                                    id="editInputOptions">
                                     @foreach ($inputOptions as $i => $opt)
                                         @php $c = $optColors[$i % count($optColors)]; @endphp
                                         <label class="cursor-pointer">
-                                            <input type="radio" name="input" value="{{ $opt }}" class="peer hidden edit-input-radio">
-                                            <div class="flex items-center justify-center h-14 rounded-2xl border border-slate-700 bg-slate-800/50 text-gray-500
+                                            <input type="radio" name="input" value="{{ $opt }}"
+                                                class="peer hidden edit-input-radio">
+                                            <div
+                                                class="flex items-center justify-center h-14 rounded-2xl border border-slate-700 bg-slate-800/50 text-gray-500
                                                 peer-checked:{{ $c[0] }} peer-checked:{{ $c[1] }} peer-checked:{{ $c[2] }}
                                                 transition-all font-black text-xs uppercase">
                                                 {{ ucfirst($opt) }}
@@ -353,12 +403,18 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Bukti Baru (opsional)</label>
+                                <label
+                                    class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Bukti
+                                    Baru (opsional)</label>
                                 <div class="relative">
-                                    <input type="file" name="bukti" id="editBuktiInput" accept="image/*" class="hidden" onchange="previewFileEdit(this)">
-                                    <label for="editBuktiInput" class="flex items-center gap-4 px-6 h-14 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-800/30 hover:border-amber-500 transition-all cursor-pointer">
+                                    <input type="file" name="bukti" id="editBuktiInput" accept="image/*"
+                                        class="hidden" onchange="previewFileEdit(this)">
+                                    <label for="editBuktiInput"
+                                        class="flex items-center gap-4 px-6 h-14 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-800/30 hover:border-amber-500 transition-all cursor-pointer">
                                         <i class="fas fa-upload text-gray-500"></i>
-                                        <span id="editFileName" class="text-[10px] font-black text-gray-500 uppercase truncate">Ganti Lampiran</span>
+                                        <span id="editFileName"
+                                            class="text-[10px] font-black text-gray-500 uppercase truncate">Ganti
+                                            Lampiran</span>
                                     </label>
                                 </div>
                             </div>
@@ -366,7 +422,8 @@
                     </div>
 
                     <div class="mt-8">
-                        <label class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Keterangan</label>
+                        <label
+                            class="block text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] mb-3 px-1">Keterangan</label>
                         <input name="keterangan" id="editKeterangan" placeholder="Detail transaksi..."
                             oninput="this.value = this.value.toUpperCase()" required
                             class="w-full bg-slate-800/50 border-slate-700 rounded-2xl text-white text-sm focus:ring-2 focus:ring-amber-500 px-6 py-4">
@@ -392,8 +449,10 @@
             <div id="imageModalContent"
                 class="relative max-w-4xl w-full bg-slate-900 rounded-[2.5rem] overflow-hidden border border-slate-700 transform scale-95 transition-all">
                 <div class="p-4 border-b border-slate-800 flex justify-between px-8 py-4">
-                    <h5 id="modalTitle" class="text-white font-black uppercase text-xs tracking-widest">Bukti Transaksi</h5>
-                    <button onclick="closeImageModal()" class="text-gray-500 hover:text-white"><i class="fas fa-times"></i></button>
+                    <h5 id="modalTitle" class="text-white font-black uppercase text-xs tracking-widest">Bukti Transaksi
+                    </h5>
+                    <button onclick="closeImageModal()" class="text-gray-500 hover:text-white"><i
+                            class="fas fa-times"></i></button>
                 </div>
                 <div class="p-8 flex justify-center bg-slate-950/50">
                     <img id="modalImage" src="" class="max-h-[70vh] rounded-2xl shadow-2xl">
@@ -409,14 +468,18 @@
             const m = document.getElementById('createModal');
             const c = document.getElementById('createModalContent');
             m.classList.remove('hidden');
-            setTimeout(() => { m.classList.add('opacity-100'); c.classList.replace('scale-95','scale-100'); }, 10);
+            setTimeout(() => {
+                m.classList.add('opacity-100');
+                c.classList.replace('scale-95', 'scale-100');
+            }, 10);
             document.body.style.overflow = 'hidden';
         }
+
         function closeCreateModal() {
             const m = document.getElementById('createModal');
             const c = document.getElementById('createModalContent');
             m.classList.remove('opacity-100');
-            c.classList.replace('scale-100','scale-95');
+            c.classList.replace('scale-100', 'scale-95');
             setTimeout(() => m.classList.add('hidden'), 300);
             document.body.style.overflow = 'auto';
         }
@@ -428,12 +491,12 @@
 
             // Set action form ke route update
             document.getElementById('editForm').action = `/keuangan/${item.id}`;
-            document.getElementById('editDate').value        = item.date;
-            document.getElementById('editKeterangan').value  = item.keterangan.toUpperCase();
+            document.getElementById('editDate').value = item.date;
+            document.getElementById('editKeterangan').value = item.keterangan.toUpperCase();
 
             // Set nominal
-            document.getElementById('editFormSaldo').value        = item.saldo;
-            document.getElementById('edit_display_saldo').value   = new Intl.NumberFormat('id-ID').format(item.saldo);
+            document.getElementById('editFormSaldo').value = item.saldo;
+            document.getElementById('edit_display_saldo').value = new Intl.NumberFormat('id-ID').format(item.saldo);
 
             // Set radio sesuai nilai input dari DB
             document.querySelectorAll('.edit-input-radio').forEach(r => {
@@ -441,14 +504,18 @@
             });
 
             m.classList.remove('hidden');
-            setTimeout(() => { m.classList.add('opacity-100'); c.classList.replace('scale-95','scale-100'); }, 10);
+            setTimeout(() => {
+                m.classList.add('opacity-100');
+                c.classList.replace('scale-95', 'scale-100');
+            }, 10);
             document.body.style.overflow = 'hidden';
         }
+
         function closeEditModal() {
             const m = document.getElementById('editModal');
             const c = document.getElementById('editModalContent');
             m.classList.remove('opacity-100');
-            c.classList.replace('scale-100','scale-95');
+            c.classList.replace('scale-100', 'scale-95');
             setTimeout(() => m.classList.add('hidden'), 300);
             document.body.style.overflow = 'auto';
         }
@@ -460,26 +527,43 @@
             document.getElementById('modalImage').src = src;
             document.getElementById('modalTitle').innerText = title;
             m.classList.remove('hidden');
-            setTimeout(() => { m.classList.add('opacity-100'); c.classList.replace('scale-95','scale-100'); }, 10);
+            setTimeout(() => {
+                m.classList.add('opacity-100');
+                c.classList.replace('scale-95', 'scale-100');
+            }, 10);
         }
+
         function closeImageModal() {
             const m = document.getElementById('imageModal');
             const c = document.getElementById('imageModalContent');
             m.classList.remove('opacity-100');
-            c.classList.replace('scale-100','scale-95');
+            c.classList.replace('scale-100', 'scale-95');
             setTimeout(() => m.classList.add('hidden'), 300);
         }
 
         function previewFile(input) {
             const label = document.getElementById('fileName');
-            if (input.files?.[0]) { label.innerText = input.files[0].name; label.classList.replace('text-gray-500','text-blue-400'); }
-        }
-        function previewFileEdit(input) {
-            const label = document.getElementById('editFileName');
-            if (input.files?.[0]) { label.innerText = input.files[0].name; label.classList.replace('text-gray-500','text-amber-400'); }
+            if (input.files?.[0]) {
+                label.innerText = input.files[0].name;
+                label.classList.replace('text-gray-500', 'text-blue-400');
+            }
         }
 
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCreateModal(); closeEditModal(); closeImageModal(); } });
+        function previewFileEdit(input) {
+            const label = document.getElementById('editFileName');
+            if (input.files?.[0]) {
+                label.innerText = input.files[0].name;
+                label.classList.replace('text-gray-500', 'text-amber-400');
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeCreateModal();
+                closeEditModal();
+                closeImageModal();
+            }
+        });
 
         // ====== FORMAT CURRENCY ======
         function formatCurrency(input) {
@@ -487,6 +571,7 @@
             document.getElementById('formSaldo').value = val;
             input.value = val ? new Intl.NumberFormat('id-ID').format(val) : '';
         }
+
         function formatCurrencyEdit(input) {
             const val = input.value.replace(/[^0-9]/g, '');
             document.getElementById('editFormSaldo').value = val;
@@ -518,13 +603,40 @@
             },
             options: {
                 maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } } },
-                    x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10, weight: 'bold' } } }
+                    y: {
+                        grid: {
+                            color: 'rgba(255,255,255,0.05)'
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            }
+                        }
+                    }
                 }
             }
         });
+
         function updateLineChart() {
             const period = document.getElementById('periodFilter').value;
             lineChart.data.labels = allChartData[period].labels;
@@ -533,9 +645,9 @@
         }
 
         // Doughnut Chart — label & data dari settings (dinamis)
-        const inputOptions  = @json($inputOptions);
-        const doughnutData  = @json($inputOptions->mapWithKeys(fn($opt) => [$opt => $totals[$opt] ?? 0])->values());
-        const doughnutColors = ['#10b981','#ef4444','#3b82f6','#f59e0b'];
+        const inputOptions = @json($inputOptions);
+        const doughnutData = @json(array_values(array_map(fn($opt) => $totals->get($opt, 0), $inputOptions)));
+        const doughnutColors = ['#10b981', '#ef4444', '#3b82f6', '#f59e0b'];
 
         new Chart(document.getElementById('doughnutChart').getContext('2d'), {
             type: 'doughnut',
@@ -555,7 +667,15 @@
                 plugins: {
                     legend: {
                         position: 'bottom',
-                        labels: { color: '#94a3b8', font: { size: 10, weight: 'bold' }, padding: 20, usePointStyle: true }
+                        labels: {
+                            color: '#94a3b8',
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            },
+                            padding: 20,
+                            usePointStyle: true
+                        }
                     }
                 }
             }

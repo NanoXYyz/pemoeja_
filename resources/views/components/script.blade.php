@@ -68,6 +68,23 @@
                     }
                 });
             }
+            if ($('#lagu').length) {
+                $('#lagu').DataTable({
+                    pageLength: 10,
+                    language: {
+                        search: "Cari:",
+                        lengthMenu: "Tampilkan _MENU_ data",
+                        info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                        infoEmpty: "Tidak ada data",
+                        paginate: {
+                            first: "«",
+                            last: "»",
+                            next: "›",
+                            previous: "‹"
+                        }
+                    }
+                });
+            }
         });
     </script>
 

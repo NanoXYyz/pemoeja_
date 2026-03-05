@@ -439,7 +439,8 @@
                         <label class="field-label">Nama Lengkap</label>
                         <div class="field-wrapper field-create">
                             <i class="fas fa-user field-icon"></i>
-                            <input type="text" name="nama" required placeholder="Contoh: John Doe">
+                            <input type="text" name="nama" oninput="this.value = this.value.toUpperCase()" required
+                                placeholder="Contoh: John Doe">
                         </div>
                     </div>
 
@@ -535,8 +536,8 @@
                         <label class="field-label">Nama Lengkap</label>
                         <div class="field-wrapper field-edit">
                             <i class="fas fa-user field-icon"></i>
-                            <input type="text" name="nama" x-model="editData.nama" required
-                                placeholder="Masukkan nama...">
+                            <input type="text" name="nama" oninput="this.value = this.value.toUpperCase()"
+                                x-model="editData.nama" required placeholder="Masukkan nama...">
                         </div>
                     </div>
 

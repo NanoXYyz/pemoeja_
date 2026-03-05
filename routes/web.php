@@ -49,6 +49,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     // Lagu (admin: edit, update, destroy saja)
     Route::resource('lagu', LaguController::class)->only(['edit', 'update', 'destroy']);
+    Route::get('/pengaturan', [LaguController::class, 'create'])->name('lagu.create');
+
 
     // Jadwal (store & destroy, index sudah di publik)
     Route::delete('/jadwal/{id}', [JadwalController::class, 'destroy'])->name('jadwal.destroy');

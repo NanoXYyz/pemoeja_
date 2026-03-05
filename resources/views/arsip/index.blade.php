@@ -6,10 +6,7 @@
 @section('content')
     <div class="flex items-center justify-between mb-8">
         <div>
-            <div class="flex items-center gap-2 text-xs text-gray-500 mb-2">
-                <span>Home</span> <i class="fas fa-chevron-right"></i> <span class="text-blue-400">Arsip</span>
-            </div>
-            <h1 class="text-2xl font-900 text-white">Arsip Dokumen</h1>
+            <h1 class="text-2xl font-900 text-white">Arsip Dokumen <span class="text-blue-400">Bolu</span></h1>
             <p class="text-gray-400 text-sm mt-1">Kelola semua dokumen, foto, dan tautan arsip</p>
         </div>
         <button onclick="showModal('modalTambahArsip')" class="btn-primary">
